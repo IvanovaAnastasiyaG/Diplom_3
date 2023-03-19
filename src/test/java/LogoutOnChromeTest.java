@@ -1,30 +1,20 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import io.qameta.allure.junit4.DisplayName;
 
 import static org.junit.Assert.assertTrue;
 
-public class LogoutTest {
-    WebDriver driver;
-    final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
-    @Before
-    public void setUp(){
-        final String PATH_DRIVERS = "\\drivers\\chromedriver.exe";
-        final String TYPE_DRIVER = "webdriver.chrome.driver";
-        System.setProperty(TYPE_DRIVER,System.getProperty("user.dir")+PATH_DRIVERS);
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
+public class LogoutOnChromeTest extends TestBaseOnChrome{
+    User user = new User("demidova_15@gmail.com", "123456", null);
 
     @Test
-    //@DisplayName("Check logout via button \"Logout\" in personal account")
+    @DisplayName("Check logout via button \"Logout\" in personal account")
     public void checkLogout() {
         boolean isSignUpButtonIsVisible =
-                new MainPage(driver)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickLoginPersonalProfileButton()
-                        .fillUserInfo("demidova_15@gmail.com","123456")
+                        .fillUserInfo(user.getEmail(),user.getPassword())
                         .clickSignInButton()
                         .clickPersonalProfileButton()
                         .clickLogoutButton()

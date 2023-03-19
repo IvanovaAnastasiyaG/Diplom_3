@@ -1,49 +1,52 @@
+import io.qameta.allure.junit4.DisplayName;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ConstructorBurgerOnYandexBrowserTest extends TestBaseOnYandexBrowser{
+public class ConstructorBurgerOnChromeTest extends TestBaseOnChrome{
+    User user = new User("demidova_24@gmail.com", "123456", "Демидова Анастасия");
 
     @Test
     @DisplayName("Check transfer to the Buns tab")
-    public void checkTransferToTheBunsTab() {
+    public void linkToBunsInTheBuns() {
         String activeTab =
-                new MainPage(driverYandexBrowser)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickBunsTab()
-                                .getTextActiveTab();
-        assertEquals("Булки", activeTab);
+                        .getTextActiveTab();
+        assertEquals(BUNS_TAB, activeTab);
     }
     @Test
     @DisplayName("Check transfer to the sauces tab")
-    public void checkTransferToTheSaucesTab() {
+    public void linkToSaucesInTheSauces() throws InterruptedException {
         String activeTab =
-                new MainPage(driverYandexBrowser)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickSaucesTab()
                         .getTextActiveTab();
-        assertEquals("Соусы", activeTab);
+        assertEquals(SAUCES_TAB, activeTab);
     }
     @Test
     @DisplayName("Check transfer to the sauces tab")
-    public void checkTransferToTheFillingsTab() {
+    public void linkToFillingInTheFilling() {
         String activeTab =
-                new MainPage(driverYandexBrowser)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickFillingsTab()
                         .getTextActiveTab();
-        assertEquals("Начинки", activeTab);
+        assertEquals(FILLINGS_TAB, activeTab);
     }
 
     @Test
     @DisplayName("Check the transfer from personal account to constructor")
-    public void checkTransferFromPersonalAccountToConstructor() {
+    public void linkFromPersonalAccountToConstructorBurger() {
         boolean isVisibilityMakeBurgerText =
-                new MainPage(driverYandexBrowser)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickLoginPersonalProfileButton()
-                        .fillUserInfo("demidova_15@gmail.com","123456")
+                        .fillUserInfo(user.getEmail(),user.getPassword())
                         .clickSignInButton()
                         .clickPersonalProfileButton()
                         .clickConstructorButton()
@@ -52,12 +55,12 @@ public class ConstructorBurgerOnYandexBrowserTest extends TestBaseOnYandexBrowse
     }
     @Test
     @DisplayName("Check the transfer from personal account by clicking on logo to constructor")
-    public void checkTransferFromPersonalAccountBy() {
+    public void linkFromPersonalAccountToMainPage() {
         boolean isVisibilityMakeBurgerText =
-                new MainPage(driverYandexBrowser)
+                new MainPage(driverChrome)
                         .open(MAIN_PAGE_URL)
                         .clickLoginPersonalProfileButton()
-                        .fillUserInfo("demidova_15@gmail.com","123456")
+                        .fillUserInfo(user.getEmail(),user.getPassword())
                         .clickSignInButton()
                         .clickPersonalProfileButton()
                         .clickMainLogo()
